@@ -7,7 +7,7 @@ public class Tablero implements Runnable{
 	public Tablero(){
 		tortuga=new Tortuga();
 		liebre= new Liebre();
-		meta=24;	
+		meta=30;	
 	}
 	public void start(){
 		if(hilo==null){
@@ -15,7 +15,7 @@ public class Tablero implements Runnable{
 			hilo.start();
 		}
 	}
-	public synchronized void turnoAmbos(){
+	public void turnoAmbos(){
 		while(tortuga.getEstado() == Agente.RUN || liebre.getEstado() == Agente.RUN){
 			try{
 				Thread.sleep(200);
@@ -24,6 +24,7 @@ public class Tablero implements Runnable{
 	}
 	public void run(){
 		int i;
+		boolean carrera=true;
 		for(i=0;i<meta;i++){
 			if(tortuga.getPosicion()==liebre.getPosicion()&&liebre.getPosicion()==i)
 				System.out.print("E  ");
@@ -37,7 +38,7 @@ public class Tablero implements Runnable{
 		System.out.println("\nEn sus marcas... !LISTOS!... !!!FUERA!!!!!!");
 		tortuga.start();
 		liebre.start();
-		while(tortuga.getPosicion()<(meta)&&liebre.getPosicion()<(meta)){
+		while(carrera){
 			turnoAmbos();
 			System.out.println("\n"+liebre+tortuga);
 			if(tortuga.getPosicion()>=meta){
@@ -46,6 +47,7 @@ public class Tablero implements Runnable{
 			else if(liebre.getPosicion()>=meta){
 				liebre.setPosicion(meta-1);
 			}
+			
 			for(i=0;i<meta;i++){
 					if(tortuga.getPosicion()==liebre.getPosicion()&&liebre.getPosicion()==i)
 						System.out.print("E  ");
@@ -57,13 +59,13 @@ public class Tablero implements Runnable{
 						System.out.print((i+1)+"  ");
 			}
 			System.out.println();
-			tortuga.setState(Agente.RUN);
-			liebre.setState(Agente.RUN);
 			if(tortuga.getPosicion()>=(meta-1)||liebre.getPosicion()>=(meta-1)){
 				tortuga.setCorrer(false);
 				liebre.setCorrer(false);
-				break;
+				carrera=!carrera;
 			}
+			tortuga.setState(Agente.RUN);
+			liebre.setState(Agente.RUN);
 		}
 		if(tortuga.getPosicion()==(meta-1))
 			System.out.println("!!!La Tortuga ha ganado unos tenis NIKE ultimo modelo....!!!");

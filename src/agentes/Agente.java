@@ -32,12 +32,13 @@ public abstract class Agente extends Thread{
 	public abstract void decision(int casilla);
 	public void run(){
 		Random rand=new Random();
-		while(correr&&checkState()){
+		while(correr){
 			decision(rand.nextInt(11));
 			state=SUSP;
 			try{
-				Thread.sleep(150);
+				Thread.sleep(200);
          }catch (InterruptedException e){}
+         checkState();
 		}
 	}
 	

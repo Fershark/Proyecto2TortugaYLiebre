@@ -20,7 +20,7 @@ public class Liebre extends Agente{
 			break;
 			case 10://Resbalon corto
 				resbalonCorto();
-				msg="Liebre se rebala a lo baboso....   ";
+				msg="Liebre se resbala a lo baboso....   ";
 			break;
 		}
 	}

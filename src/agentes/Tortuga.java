@@ -9,7 +9,7 @@ public class Tortuga extends Agente{
 			break;
 			case 6:case 7://Resbalon
 				resbalon();
-				msg="Tortuga se reabala....   ";
+				msg="Tortuga se resbala....   ";
 			break;
 			case 8:case 9:case 10://Paso Lento
 				pasoLento();
