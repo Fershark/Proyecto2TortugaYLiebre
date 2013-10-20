@@ -21,7 +21,11 @@ public abstract class Agente extends Thread{
 	   }
 	   return true;
 	}
-	public Agente(){correr=true;}
+	public Agente(){correr=false;state=SUSP;}
+	public void inicio(){correr=true;posicion=0;setState(SUSP);}
+	public void pausa(){correr=false;}
+	public void play(){setState(RUN);correr=true;}
+	
 	public int getEstado(){int i=state;return i;}
 	public int getPosicion(){return posicion;}
 	public boolean getCorrer(){return correr;}
@@ -32,13 +36,11 @@ public abstract class Agente extends Thread{
 	public abstract void decision(int casilla);
 	public void run(){
 		Random rand=new Random();
-		while(correr){
-			decision(rand.nextInt(11));
+		while(checkState()){
+			if(correr){
+				decision(rand.nextInt(11));
+			}
 			state=SUSP;
-			try{
-				Thread.sleep(200);
-         }catch (InterruptedException e){}
-         checkState();
 		}
 	}
 	
